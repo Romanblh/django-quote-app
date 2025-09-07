@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Случайная цитата</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+        blockquote {
+            font-size: 1.4em;
+            color: #333;
+            border-left: 5px solid #007acc;
+            padding-left: 20px;
+            margin: 20px 0;
+        }
+        .actions {
+            margin-top: 20px;
+        }
+        .actions a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #007acc;
+            font-weight: bold;
+        }
+        .actions a:hover {
+            text-decoration: underline;
+        }
+        .stats {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+        }
+        .footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <h1>Цитата дня</h1>
+
+    {% if quote %}
+        <blockquote>
+            "{{ quote.text }}"
+        </blockquote>
+        <p><strong>Источник:</strong> {{ quote.source }}</p>
+        <p class="stats">
+            <strong>Просмотров:</strong> {{ quote.view_count }} |
+            <strong>Лайков:</strong> {{ quote.likes }} |
+            <strong>Дизлайков:</strong> {{ quote.dislikes }}
+        </p>
+
+        <div class="actions">
+            <a href="{% url 'quotes:like' quote.id %}">👍 Лайк</a>
+            <a href="{% url 'quotes:dislike' quote.id %}">👎 Дизлайк</a>
+        </div>
+    {% else %}
+        <p>Пока нет цитат. Добавьте в <a href="/admin">админке</a>.</p>
+    {% endif %}
+
+    <hr>
+    <a href="{% url 'quotes:top' %}">➡️ Топ-10 самых популярных цитат</a>
+
+    <div class="footer">
+        <p>Тестовое задание для позиции Python-стажера</p>
+    </div>
+</body>
+</html>
